@@ -1,5 +1,5 @@
 # Multiplanner
-Tool om polydestinale reizen te plannen over het Nederlandse spoornet. Gebruikt de officiele NS api 
+Tool om polydestinale reizen te plannen over het Nederlandse spoornet. Gebruikt de officiele NS api.
 
 # Setup
 Kopieer `opslag/config.json.example` naar `opslag/config.json` en vul een api key in, te verkrijgen op [https://apiportal.ns.nl/](https://apiportal.ns.nl/).
