@@ -1,0 +1,4 @@
+/node_modules
+/opslag/*.json
+/opslag/*.dat
+/package-lock.json
