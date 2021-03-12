@@ -1,1 +1,1 @@
-grep -i "$*" opslag/stations.dat
+grep -i "$*" opslag/stations.txt
