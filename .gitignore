@@ -1,4 +1,4 @@
 /node_modules
 /opslag/*.json
-/opslag/*.dat
+/opslag/bewijs.txt
 /package-lock.json

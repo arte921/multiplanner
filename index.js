@@ -1,4 +1,5 @@
 const readJSONSync = require('./functies/readJSONSync.js');
+const writeTXT = require('./functies/writeTXT.js');
 const haalReisOp = require('./functies/haalReisOp.js');
 const formatteerReis = require('./functies/formatteerReis.js');
 const {
@@ -27,9 +28,13 @@ const multiReis = async (stations, startmoment) => {
     volgendeDatum = new Date(volgendeDatum.getTime() - 2 * 60 * 1000);
 
     let totalePrijsCent = 0;
+    let urls = [];
     
     for (let i = 1; i < route.length; i++) {
         const trip = await vroegsteVolledigeReis(route[i - 1], route[i], volgendeDatum, volgRitNummer);
+        urls.push(trip.shareUrl.uri);
+        // await require('./functies/writeJSON.js')(trip, 'bs');
+        // return;
         const rit = trip.legs.map(extractLeg);
         totalePrijsCent += trip.productFare.priceInCentsExcludingSupplement; //priceInCents;
 
@@ -48,11 +53,13 @@ const multiReis = async (stations, startmoment) => {
     return {
         prijs: totalePrijsCent,
         reistijd: reistijd,
+        urls: urls,
         reis: resultaat
     };
 };
 
 (async () => {
     const reis = await multiReis(config.route, new Date(config.startmoment));
+    writeTXT(reis.urls.join("\n"), "bewijs");
     console.log(formatteerReis(reis));
 })();
