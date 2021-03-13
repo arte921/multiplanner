@@ -1,4 +1,5 @@
 /node_modules
 /opslag/*.json
 /opslag/bewijs.txt
+/opslag/reis.txt
 /package-lock.json
