@@ -61,7 +61,8 @@ const multiReis = async (stations, startmoment) => {
 (async () => {
     const reis = await multiReis(config.route, new Date(config.startmoment));
     const reisScriptNederlands = formatteerReis(reis);
+    console.log(reisScriptNederlands);
+    writeTXT(reis.reis.map((reisdeel, reisdeelIndex) => reisdeel.stations.filter((_, stationIndex) => reisdeelIndex == 0 || stationIndex > 0).join("\n")).join("\n"), "gepasseerd");
     writeTXT(reis.urls.join("\n") + "\n", "bewijs");
     writeTXT(reisScriptNederlands, "reis");
-    console.log(reisScriptNederlands);
 })();

@@ -13,7 +13,8 @@ const extractLeg = (leg, index) => ({
     richting: leg.direction,
     categorie: leg.product.longCategoryName,
     ritnummer: leg.product.number,
-    index: index
+    index: index,
+    stations: leg.stops.map((stop) => stop.name)
 });
 
 const eerstAankomendeGeldigeRit = (trips, moment, volgritNummer) => {
