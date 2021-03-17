@@ -46,8 +46,6 @@ const multiReis = async (route, startmoment) => {
     const reistijd = (resultaat[resultaat.length - 1].aankomsttijd - resultaat[0].vertrektijd) / 1000 / 60;
     let gepaseerdeStations = [];
     resultaat.forEach((reisdeel, reisdeelIndex) => reisdeel.stations.filter((_, stationIndex) => reisdeelIndex == 0 || stationIndex > 0).forEach((station) => gepaseerdeStations.push(station)));
-    
-    const afstand = stationsLijstAfstand(gepaseerdeStations);
 
     return {
         prijs: totalePrijsCent,
@@ -55,7 +53,7 @@ const multiReis = async (route, startmoment) => {
         urls: urls,
         reis: resultaat,
         gepasseerdestations: gepaseerdeStations,
-        afstand: afstand
+        afstand: stationsLijstAfstand(gepaseerdeStations)
     };
 };
 
