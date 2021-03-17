@@ -2,5 +2,3 @@
 /opslag/*.json
 /opslag/*.txt
 /package-lock.json
-
-!opslag/stations.txt
