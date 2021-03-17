@@ -10,5 +10,5 @@ module.exports = (reis) => {
         const zijdeDeel = rit.uitstapzijde ? ` aan de ${vertaalZijde(rit.uitstapzijde)}` : '';
         return `Stap voor ${formatteerDatum(rit.vertrektijd)} (binnen ${rit.overstaptijd} minuten) in de ${rit.categorie} richting ${rit.richting} op spoor ${rit.vertrekspoor}.\nStap om ${formatteerDatum(rit.aankomsttijd)}${zijdeDeel} uit in ${rit.aankomststationnaam}.`;
     }).join('\n');
-    return `Prijs: €${reis.prijs / 100}. Totale reistijd: ${formateerTijdsduurMinuten(reis.reistijd)}.\n${resultaatString}`;
+    return `Prijs: €${reis.prijs / 100}. Totale reistijd: ${formateerTijdsduurMinuten(reis.reistijd)}. Totale afstand: ${Math.round(reis.afstand)} kilometer.\n${resultaatString}`;
 };

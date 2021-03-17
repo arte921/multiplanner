@@ -2,6 +2,7 @@ const readJSONSync = require('./functies/readJSONSync.js');
 const writeTXT = require('./functies/writeTXT.js');
 const haalReisOp = require('./functies/haalReisOp.js');
 const formatteerReis = require('./functies/formatteerReis.js');
+const stationsLijstAfstand = require('./functies/stationsLijstAfstand.js');
 const {
     eerstAankomendeGeldigeRit,
     aankomstTijd,
@@ -13,20 +14,14 @@ const config = readJSONSync("config");
 
 const vroegsteVolledigeReis = async (van, naar, moment, volgRit) => await haalTripOp(eerstAankomendeGeldigeRit((await haalReisOp(van.toUpperCase(), naar.toUpperCase(), moment.toISOString())).trips, moment, volgRit).ctxRecon);
 
-const multiReis = async (stations, startmoment) => {    
-    let resultaat = [];
-    let volgendeDatum = startmoment;
+const multiReis = async (route, startmoment) => {
     let volgRitNummer;
-    let route = stations;
-
-    if (process.argv.length > 2) {
-        volgendeDatum = new Date();
-        route = process.argv.slice(2);
-    }
+    let volgendeDatum = startmoment;
     
     let beginDatum = volgendeDatum;
     volgendeDatum = new Date(volgendeDatum.getTime() - 2 * 60 * 1000);
 
+    let resultaat = [];
     let totalePrijsCent = 0;
     let urls = [];
     
@@ -49,20 +44,34 @@ const multiReis = async (stations, startmoment) => {
     }
 
     const reistijd = (resultaat[resultaat.length - 1].aankomsttijd - resultaat[0].vertrektijd) / 1000 / 60;
+    let gepaseerdeStations = [];
+    resultaat.forEach((reisdeel, reisdeelIndex) => reisdeel.stations.filter((_, stationIndex) => reisdeelIndex == 0 || stationIndex > 0).forEach((station) => gepaseerdeStations.push(station)));
+    
+    const afstand = stationsLijstAfstand(gepaseerdeStations);
 
     return {
         prijs: totalePrijsCent,
         reistijd: reistijd,
         urls: urls,
-        reis: resultaat
+        reis: resultaat,
+        gepasseerdestations: gepaseerdeStations,
+        afstand: afstand
     };
 };
 
 (async () => {
-    const reis = await multiReis(config.route, new Date(config.startmoment));
+    let vertrekmoment = new Date(config.startmoment);
+    let route = config.route;
+
+    if (process.argv.length > 2) {
+        vertrekmoment = new Date();
+        route = process.argv.slice(2);
+    }
+
+    const reis = await multiReis(route, vertrekmoment);
     const reisScriptNederlands = formatteerReis(reis);
     console.log(reisScriptNederlands);
-    writeTXT(reis.reis.map((reisdeel, reisdeelIndex) => reisdeel.stations.filter((_, stationIndex) => reisdeelIndex == 0 || stationIndex > 0).join("\n")).join("\n"), "gepasseerd");
-    writeTXT(reis.urls.join("\n") + "\n", "bewijs");
+    writeTXT(reis.gepasseerdestations, "gepasseerd");
+    writeTXT(reis.urls, "bewijs");
     writeTXT(reisScriptNederlands, "reis");
 })();
