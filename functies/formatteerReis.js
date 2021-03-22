@@ -12,9 +12,8 @@ const wachtcijfers = 2;
 
 module.exports = (reis) => {
     resultaatString = reis.reis.map((rit, index) => {
-        const overstapDeel = index == 0 ? '' : ` na ${rit.overstaptijd} minuten`
         const zijdeDeel = rit.uitstapzijde ? ` aan de ${vertaalZijde(rit.uitstapzijde)}` : '';
-        return `${formatteerDatum(rit.vertrektijd)} ${maakStringLengte(rit.overstaptijd, wachtlengte, wachtcijfers)} Vertrek in de ${rit.categorie} richting ${rit.richting} op spoor ${rit.vertrekspoor}.\n${formatteerDatum(rit.aankomsttijd)} ${maakStringLengte(rit.ritduur, wachtlengte, wachtcijfers)} Stap${zijdeDeel} uit in ${rit.aankomststationnaam}.`;
+        return `${formatteerDatum(rit.vertrektijd)} ${maakStringLengte(rit.overstaptijd, wachtlengte, wachtcijfers)}Vertrek in de ${rit.categorie} richting ${rit.richting} op spoor ${rit.vertrekspoor}.\n${formatteerDatum(rit.aankomsttijd)} ${maakStringLengte(rit.ritduur, wachtlengte, wachtcijfers)}Stap${zijdeDeel} uit in ${rit.aankomststationnaam}.`;
     }).join('\n');
     return `Prijs: €${reis.prijs / 100}.\nTotale reistijd: ${formateerTijdsduurMinuten(reis.reistijd)}.\nTotale afstand: ${Math.round(reis.afstand)} kilometer.\nHemelsbrede afstand: ${Math.round(reis.hemelsbredeafstand)} kilometer.\nTijd  Na Actie\n${resultaatString}`;
 };
