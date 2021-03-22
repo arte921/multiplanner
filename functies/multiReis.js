@@ -1,5 +1,6 @@
 const vroegsteVolledigeReis = require('./vroegsteVolledigeReis.js');
 const stationsLijstAfstand = require('./stationsLijstAfstand.js');
+const coordinaatAfstand = require('./coordinaatAfstand.js');
 const {
     aankomstTijd,
     extractLeg
@@ -15,6 +16,9 @@ module.exports = async (route, startmoment, begintijd) => {
     let resultaat = [];
     let totalePrijsCent = 0;
     let urls = [];
+
+    let begincoordinaat;
+    let eindcoordinaat;
     
     for (let i = 1; i < route.length; i++) {
         const trip = await vroegsteVolledigeReis(route[i - 1], route[i], volgendeDatum, volgRitNummer);
@@ -23,6 +27,9 @@ module.exports = async (route, startmoment, begintijd) => {
         // return;
         const rit = trip.legs.map(extractLeg);
         totalePrijsCent += trip.productFare.priceInCentsExcludingSupplement; //priceInCents;
+
+        if (i == 1) begincoordinaat = [trip.legs[0].origin.lng, trip.legs[0].origin.lat];
+        if (i == route.length - 1) eindcoordinaat = [trip.legs[trip.legs.length - 1].destination.lng, trip.legs[trip.legs.length - 1].destination.lat];
 
         volgendeDatum = aankomstTijd(trip);
         volgRitNummer = rit[rit.length - 1].ritnummer;
@@ -44,6 +51,7 @@ module.exports = async (route, startmoment, begintijd) => {
         urls: urls,
         reis: resultaat,
         gepasseerdestations: gepaseerdeStations,
-        afstand: stationsLijstAfstand(gepaseerdeStations)
+        afstand: stationsLijstAfstand(gepaseerdeStations),
+        hemelsbredeafstand: coordinaatAfstand(begincoordinaat, eindcoordinaat)
     };
 };
