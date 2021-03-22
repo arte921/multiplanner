@@ -2,6 +2,8 @@ const writeJSON = require("./functies/writeJSON.js");
 const haalDataOp = require('./functies/haalDataOp.js');
 const writeTXT = require('./functies/writeTXT.js');
 const coordinaatAfstand = require('./functies/coordinaatAfstand.js');
+const maakStringLengte = require("./functies/maakStringLengte.js");
+
 const polylineAfstand = (polyline) => {
     let afstand = 0;
     for (let i = 1; i < polyline.length; i++) {
@@ -22,5 +24,5 @@ const polylineAfstand = (polyline) => {
             naam: station.namen.lang
         }));
     writeJSON(geformatterdestations, 'stations');
-    writeTXT(geformatterdestations.map((station) => station.code + " ".repeat(8 - station.code.length) + station.naam), "stations");
+    writeTXT(geformatterdestations.map((station) => maakStringLengte(station.code, 8) + station.naam), "stations");
 })();

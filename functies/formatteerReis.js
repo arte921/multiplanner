@@ -1,6 +1,7 @@
+const maakStringLengte = require("./maakStringLengte.js");
+
 const formateerTijdsduurMinuten = (tijdsduur) => `${Math.floor(tijdsduur / 60)} uur en ${tijdsduur % 60} minuten`;
 const formatteerDatum = (date) => date.toLocaleString('en-NL', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Amsterdam' });
-const maakStringLengte = (string, lengte) => `${string}${" ".repeat(lengte - `${string}`.length - 1)}`;
 const vertaalZijde = (zijde) => ({
     LEFT: "linkerzijde",
     RIGHT: "rechterzijde"
