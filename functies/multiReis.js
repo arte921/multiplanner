@@ -19,6 +19,9 @@ module.exports = async (route, startmoment, begintijd) => {
 
     let begincoordinaat;
     let eindcoordinaat;
+
+    let treintijd = 0;
+    let stationstijd = 0;
     
     for (let i = 1; i < route.length; i++) {
         const trip = await vroegsteVolledigeReis(route[i - 1], route[i], volgendeDatum, volgRitNummer);
@@ -36,8 +39,10 @@ module.exports = async (route, startmoment, begintijd) => {
         resultaat.push(...rit);
     }
 
-    for (const rit of resultaat) {
+    for (const [index, rit] of resultaat.entries()) {
         rit.overstaptijd = Math.floor((rit.vertrektijd - beginDatum) / 60 / 1000);
+        if (index > 0) stationstijd += rit.overstaptijd;
+        treintijd += rit.ritduur;
         beginDatum = rit.aankomsttijd;
     }
 
@@ -52,6 +57,8 @@ module.exports = async (route, startmoment, begintijd) => {
         reis: resultaat,
         gepasseerdestations: gepaseerdeStations,
         afstand: stationsLijstAfstand(gepaseerdeStations),
-        hemelsbredeafstand: coordinaatAfstand(begincoordinaat, eindcoordinaat)
+        hemelsbredeafstand: coordinaatAfstand(begincoordinaat, eindcoordinaat),
+        treintijd: treintijd,
+        stationstijd: stationstijd
     };
 };
