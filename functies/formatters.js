@@ -4,8 +4,8 @@ const maakTabel = (data) => data.map((rij) => rij.map((waarde, kolomIndex, _, br
 const formateerTijdsduurMinuten = (tijdsduur) => `${tijdsduur >= 60 ? `${Math.floor(tijdsduur / 60)} uur en ` : ""}${tijdsduur % 60} minuten`;
 const formatteerDatum = (date) => date.toLocaleString('en-NL', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Amsterdam' });
 const vertaalZijde = (zijde) => ({
-    LEFT: "linkerzijde",
-    RIGHT: "rechterzijde"
+    LEFT: "links",
+    RIGHT: "rechts"
 })[zijde];
 
 module.exports = {
