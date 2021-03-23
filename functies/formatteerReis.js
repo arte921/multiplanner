@@ -1,21 +1,13 @@
 const {
-    maakTabel
+    maakTabel,
+    formateerTijdsduurMinuten,
+    formatteerDatum,
+    vertaalZijde
 } = require("./formatters.js");
-
-const formateerTijdsduurMinuten = (tijdsduur) => {
-    const uurdeel = tijdsduur >= 60 ? `${Math.floor(tijdsduur / 60)} uur en ` : "";
-    return `${uurdeel}${tijdsduur % 60} minuten`;
-}
-const formatteerDatum = (date) => date.toLocaleString('en-NL', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Amsterdam' });
-const vertaalZijde = (zijde) => ({
-    LEFT: "linkerzijde",
-    RIGHT: "rechterzijde"
-})[zijde];
-
 
 module.exports = (reis) => {
     const infoTabel = maakTabel([
-        ["Prijs", `€${reis.prijs / 100}`],
+        ["Prijs", `€${(reis.prijs / 100).toFixed(2)}`],
         ["Wachttijd", formateerTijdsduurMinuten(reis.stationstijd)],
         ["Rijtijd", formateerTijdsduurMinuten(reis.treintijd)],
         ["Totale reistijd", formateerTijdsduurMinuten(reis.reistijd)],
