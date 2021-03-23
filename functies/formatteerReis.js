@@ -1,4 +1,6 @@
-const maakStringLengte = require("./maakStringLengte.js");
+const {
+    maakTabel
+} = require("./formatters.js");
 
 const formateerTijdsduurMinuten = (tijdsduur) => {
     const uurdeel = tijdsduur >= 60 ? `${Math.floor(tijdsduur / 60)} uur en ` : "";
@@ -10,7 +12,6 @@ const vertaalZijde = (zijde) => ({
     RIGHT: "rechterzijde"
 })[zijde];
 
-const maakTabel = (data) => data.map((rij) => rij.map((waarde, kolomIndex, _, breedte = data.map((rij) => `${rij[kolomIndex]}`.length).reduce((hoogste, huidige) => Math.max(huidige, hoogste))) => maakStringLengte(waarde, breedte, isNaN(waarde) ? undefined : breedte)).join(" ")).join("\n");
 
 module.exports = (reis) => {
     const infoTabel = maakTabel([
