@@ -23,7 +23,8 @@ const polylineAfstand = (polyline) => {
     const stations = await haalDataOp('/reisinformatie-api/api/v2/stations');
     const geformatterdestations = stations.payload.filter((station) => station.land == "NL").map((station) => ({
             code: station.code.toLowerCase(),
-            naam: station.namen.lang
+            naam: station.namen.lang,
+            coordinaat: [station.lng, station.lat]
         }));
     writeJSON(geformatterdestations, 'stations');
     writeTXT(maakTabel(geformatterdestations.map((station) => [station.code, station.naam])), "stations");
