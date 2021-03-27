@@ -9,10 +9,10 @@ module.exports = (stations) => {
         const volledigStation = vindStation(station);
         
         if (index != 0) {
-            afstand += stationAfstand(vorigStation, volledigStation.code);
+            afstand += stationAfstand(vorigStation, volledigStation);
         }
 
-        vorigStation = volledigStation.code;
+        vorigStation = volledigStation;
     });
 
     return afstand;
