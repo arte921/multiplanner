@@ -1,10 +1,10 @@
-module.exports = (coordinaat1, coordinaat2) => {
-    const radialenfactor = Math.PI / 180;
+const radialenfactor = Math.PI / 180;
 
-    const lat1 = coordinaat1[1] * radialenfactor;
-    const lon1 = coordinaat1[0] * radialenfactor;
-    const lat2 = coordinaat2[1] * radialenfactor;
-    const lon2 = coordinaat2[0] * radialenfactor;
+module.exports = (coordinaat1, coordinaat2) => {
+    const lat1 = coordinaat1.lat * radialenfactor;
+    const lon1 = coordinaat1.lng * radialenfactor;
+    const lat2 = coordinaat2.lat * radialenfactor;
+    const lon2 = coordinaat2.lng * radialenfactor;
 
     const dlat = lat1 - lat2;
     const dlon = lon1 - lon2;

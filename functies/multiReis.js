@@ -1,5 +1,5 @@
 const vroegsteVolledigeReis = require('./vroegsteVolledigeReis.js');
-const stationsLijstAfstand = require('./stationsLijstAfstand.js');
+const polylineAfstand = require('./polylineAfstand.js');
 const stationsLijstPolyline = require('./stationsLijstPolyline.js');
 const coordinaatAfstand = require('./coordinaatAfstand.js');
 const {
@@ -50,6 +50,8 @@ module.exports = async (route, startmoment, begintijd) => {
     const reistijd = (resultaat[resultaat.length - 1].aankomsttijd - resultaat[0].vertrektijd) / 1000 / 60;
     let gepaseerdeStations = [];
     resultaat.forEach((reisdeel, reisdeelIndex) => reisdeel.stations.filter((_, stationIndex) => reisdeelIndex == 0 || stationIndex > 0).forEach((station) => gepaseerdeStations.push(station)));
+    const polyline = stationsLijstPolyline(gepaseerdeStations);
+
 
     return {
         prijs: totalePrijsCent,
@@ -57,9 +59,9 @@ module.exports = async (route, startmoment, begintijd) => {
         urls: urls,
         reis: resultaat,
         gepasseerdestations: gepaseerdeStations,
-        afstand: stationsLijstAfstand(gepaseerdeStations),
-        hemelsbredeafstand: coordinaatAfstand(begincoordinaat, eindcoordinaat),
-        polyline: stationsLijstPolyline(gepaseerdeStations),
+        afstand: polylineAfstand(polyline),
+        hemelsbredeafstand: coordinaatAfstand(polyline[0], polyline[polyline.length - 1]),
+        polyline: polyline,
         treintijd: treintijd,
         stationstijd: stationstijd
     };
