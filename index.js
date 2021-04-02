@@ -1,7 +1,12 @@
+const http = require('http');
+
 const readJSON = require('./functies/readJSON.js');
 const writeTXT = require('./functies/writeTXT.js');
 const formatteerReis = require('./functies/formatteerReis.js');
 const multiReis = require('./functies/multiReis.js');
+const genereerHTMLResulataat = require('./functies/genereerHTMLResulataat.js');
+
+let reisHTML = "Nog geen reis berekend";
 
 (async () => {
     const config = await readJSON("config");
@@ -25,8 +30,17 @@ const multiReis = require('./functies/multiReis.js');
 
     const reis = await multiReis(route, vertrekmoment, begintijd);
     const reisScriptNederlands = formatteerReis(reis);
+    reisHTML = genereerHTMLResulataat(reis);
+    
     console.log(reisScriptNederlands);
     writeTXT(reis.gepasseerdestations, "gepasseerd");
     writeTXT(reis.urls, "bewijs");
     writeTXT(reisScriptNederlands, "reis");
 })();
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end(reisHTML);
+});
+
+server.listen(8080);
