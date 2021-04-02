@@ -81,8 +81,8 @@ module.exports = (reis) => {
             <tr><th>Wachttijd</th><td>${formateerTijdsduurMinuten(reis.stationstijd)}</td></tr>
             <tr><th>Rijtijd</th><td>${formateerTijdsduurMinuten(reis.treintijd)}</td></tr>
             <tr><th>Totale reistijd</th><td>${formateerTijdsduurMinuten(reis.reistijd)}</td></tr>
-            <tr><th>Hemelsbrede afstand</th><td>${Math.round(reis.hemelsbredeafstand)}</td></tr>
-            <tr><th>Afgelegde afstand</th><td>${Math.round(reis.afstand)}</td></tr>
+            <tr><th>Hemelsbrede afstand</th><td>${Math.round(reis.hemelsbredeafstand)} kilometer</td></tr>
+            <tr><th>Afgelegde afstand</th><td>${Math.round(reis.afstand)} kilometer</td></tr>
         </table>
         <br>
         <table>
