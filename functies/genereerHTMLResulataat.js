@@ -45,6 +45,15 @@ module.exports = (reis) => {
     </head>
     <body>
         <table>
+            <tr><th>Prijs</th><td>&euro;${reis.prijs / 100}</td></tr>
+            <tr><th>Wachttijd</th><td>${formateerTijdsduurMinuten(reis.stationstijd)}</td></tr>
+            <tr><th>Rijtijd</th><td>${formateerTijdsduurMinuten(reis.treintijd)}</td></tr>
+            <tr><th>Totale reistijd</th><td>${formateerTijdsduurMinuten(reis.reistijd)}</td></tr>
+            <tr><th>Hemelsbrede afstand</th><td>${Math.round(reis.hemelsbredeafstand)}</td></tr>
+            <tr><th>Afgelegde afstand</th><td>${Math.round(reis.afstand)}</td></tr>
+        </table>
+        <br>
+        <table>
             <th>Overstaptijd</th>
             <th>Vertrekstation</th>
             <th>Vertrekspoor</th>
@@ -58,6 +67,16 @@ module.exports = (reis) => {
             <th>Uitstapzijde</th>
             ${reisTabel}
         </table>
+        <br>
+        <b>Bewijs links</b>
+        <ul>
+            ${reis.urls.map((url, index) => `<li><a href=${url} target="_blank">Bewijslink ${index + 1}</a></li>`).join("")}
+        </ul>
+        <br>
+        <b>Gepasseerde stations</b>
+        <ul><li>
+            ${reis.gepasseerdestations.join("</li><li>")}
+        </li></ul>
     </body>
 </html>
 
