@@ -1,5 +1,6 @@
 const vroegsteVolledigeReis = require('./vroegsteVolledigeReis.js');
 const stationsLijstAfstand = require('./stationsLijstAfstand.js');
+const stationsLijstPolyline = require('./stationsLijstPolyline.js');
 const coordinaatAfstand = require('./coordinaatAfstand.js');
 const {
     aankomstTijd,
@@ -58,6 +59,7 @@ module.exports = async (route, startmoment, begintijd) => {
         gepasseerdestations: gepaseerdeStations,
         afstand: stationsLijstAfstand(gepaseerdeStations),
         hemelsbredeafstand: coordinaatAfstand(begincoordinaat, eindcoordinaat),
+        polyline: stationsLijstPolyline(gepaseerdeStations),
         treintijd: treintijd,
         stationstijd: stationstijd
     };

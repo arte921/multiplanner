@@ -4,6 +4,10 @@ const {
     vertaalZijde
  } = require("./formatters.js");
 
+
+ const readJSONSync = require('./readJSONSync.js');
+ const config = readJSONSync("config");
+
 module.exports = (reis) => {
     // require("./writeJSON")(reis, "bs_reis");
 
@@ -41,9 +45,37 @@ module.exports = (reis) => {
             th {
                 text-align: left;
             }
+
+            #map {
+                height: 100%;
+                /* The height is 400 pixels */
+                width: 100%;
+                /* The width is the width of the web page */
+              }
         </style>
+        <script>
+        // Initialize and add the map
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 3,
+                center: { lat: 0, lng: -180 },
+                mapTypeId: "terrain",
+              });
+
+            const polyline = new google.maps.Polyline({
+                path: ${JSON.stringify(reis.polyline)},
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                map: map
+              });
+        }
+        </script>
     </head>
     <body>
+        <div id="map"></div>
+        <br>
         <table>
             <tr><th>Prijs</th><td>&euro;${reis.prijs / 100}</td></tr>
             <tr><th>Wachttijd</th><td>${formateerTijdsduurMinuten(reis.stationstijd)}</td></tr>
@@ -77,6 +109,9 @@ module.exports = (reis) => {
         <ul><li>
             ${reis.gepasseerdestations.join("</li><li>")}
         </li></ul>
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?key=${config.google_maps_api_key}&callback=initMap">
+        </script>
     </body>
 </html>
 

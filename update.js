@@ -15,7 +15,8 @@ const polylineAfstand = (polyline) => {
 };
 
 (async () => {
-    writeJSON((await haalDataOp('/Spoorkaart-API/api/v1/spoorkaart/')).payload.features.map((feature) => ({
+    const spoorkaart = await haalDataOp('/Spoorkaart-API/api/v1/spoorkaart/');
+    writeJSON(spoorkaart.payload.features.map((feature) => ({
         van: feature.properties.from,
         naar: feature.properties.to,
         afstand: polylineAfstand(feature.geometry.coordinates)
@@ -27,5 +28,6 @@ const polylineAfstand = (polyline) => {
             coordinaat: [station.lng, station.lat]
         }));
     writeJSON(geformatterdestations, 'stations');
+    writeJSON(spoorkaart, 'spoorkaart');
     writeTXT(maakTabel(geformatterdestations.map((station) => [station.code, station.naam])), "stations");
 })();
