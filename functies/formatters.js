@@ -6,7 +6,7 @@ const formatteerDatum = (date) => date.toLocaleString('en-NL', { hour: '2-digit'
 const vertaalZijde = (zijde) => ({
     LEFT: "links",
     RIGHT: "rechts"
-})[zijde];
+})[zijde] || "onbekend";
 
 module.exports = {
     maakTabel,
