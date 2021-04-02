@@ -1,4 +1,5 @@
 const http = require('http');
+const { exec } = require("child_process");
 
 const readJSON = require('./functies/readJSON.js');
 const writeTXT = require('./functies/writeTXT.js');
@@ -31,6 +32,7 @@ let reisHTML = "Nog geen reis berekend";
     const reis = await multiReis(route, vertrekmoment, begintijd);
     const reisScriptNederlands = formatteerReis(reis);
     reisHTML = genereerHTMLResulataat(reis);
+    exec("xdg-open http://localhost:8080");
     
     console.log(reisScriptNederlands);
     writeTXT(reis.gepasseerdestations, "gepasseerd");
@@ -41,6 +43,7 @@ let reisHTML = "Nog geen reis berekend";
 const server = http.createServer((req, res) => {
     res.writeHead(200);
     res.end(reisHTML);
+    process.exit();    
 });
 
 server.listen(8080);
