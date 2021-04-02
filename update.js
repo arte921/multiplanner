@@ -16,17 +16,14 @@ const polylineAfstand = (polyline) => {
 
 (async () => {
     const spoorkaart = await haalDataOp('/Spoorkaart-API/api/v1/spoorkaart/');
-    writeJSON(spoorkaart.payload.features.map((feature) => ({
-        van: feature.properties.from,
-        naar: feature.properties.to,
-        afstand: polylineAfstand(feature.geometry.coordinates)
-    })), 'afstanden');
     const stations = await haalDataOp('/reisinformatie-api/api/v2/stations');
+
     const geformatterdestations = stations.payload.filter((station) => station.land == "NL").map((station) => ({
-            code: station.code.toLowerCase(),
-            naam: station.namen.lang,
-            coordinaat: [station.lng, station.lat]
-        }));
+        code: station.code.toLowerCase(),
+        naam: station.namen.lang,
+        coordinaat: [station.lng, station.lat]
+    }));
+
     writeJSON(geformatterdestations, 'stations');
     writeJSON(spoorkaart, 'spoorkaart');
     writeTXT(maakTabel(geformatterdestations.map((station) => [station.code, station.naam])), "stations");
