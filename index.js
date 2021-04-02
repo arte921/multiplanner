@@ -1,11 +1,9 @@
-const http = require('http');
-const { exec } = require("child_process");
-
 const readJSON = require('./functies/readJSON.js');
 const writeTXT = require('./functies/writeTXT.js');
 const formatteerReis = require('./functies/formatteerReis.js');
 const multiReis = require('./functies/multiReis.js');
 const genereerHTMLResulataat = require('./functies/genereerHTMLResulataat.js');
+const openHTML = require('./functies/openHTML.js');
 
 let reisHTML = "Nog geen reis berekend";
 
@@ -30,20 +28,15 @@ let reisHTML = "Nog geen reis berekend";
     }
 
     const reis = await multiReis(route, vertrekmoment, begintijd);
-    const reisScriptNederlands = formatteerReis(reis);
     reisHTML = genereerHTMLResulataat(reis);
-    exec("xdg-open http://localhost:8080");
+    const reisScriptNederlands = formatteerReis(reis);
     
     console.log(reisScriptNederlands);
+    
+    writeTXT(reisHTML, "reishtml");
     writeTXT(reis.gepasseerdestations, "gepasseerd");
     writeTXT(reis.urls, "bewijs");
     writeTXT(reisScriptNederlands, "reis");
+
+    openHTML(reisHTML);
 })();
-
-const server = http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end(reisHTML);
-    process.exit();    
-});
-
-server.listen(8080);
