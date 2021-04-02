@@ -57,8 +57,8 @@ module.exports = (reis) => {
         // Initialize and add the map
         function initMap() {
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 3,
-                center: { lat: 0, lng: -180 },
+                zoom: 8,
+                center: { lat: 52.2587, lng: 5.6054 },
                 mapTypeId: "terrain",
               });
 
