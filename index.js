@@ -29,14 +29,13 @@ let reisHTML = "Nog geen reis berekend";
 
     const reis = await multiReis(route, vertrekmoment, begintijd);
     reisHTML = genereerHTMLResulataat(reis);
+    openHTML(reisHTML);
+
     const reisScriptNederlands = formatteerReis(reis);
-    
     console.log(reisScriptNederlands);
-    
+
+    writeTXT(reisScriptNederlands, "reis");
     writeTXT(reisHTML, "reishtml");
     writeTXT(reis.gepasseerdestations, "gepasseerd");
     writeTXT(reis.urls, "bewijs");
-    writeTXT(reisScriptNederlands, "reis");
-
-    openHTML(reisHTML);
 })();

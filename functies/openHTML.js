@@ -4,11 +4,13 @@ const http = require('http');
 const { exec } = require("child_process");
 
 module.exports = (html) => {
-    http.createServer((_, res) => {
-        res.writeHead(200);
+    const server = http.createServer((_, res) => {
+        res.setHeader('Connection', 'close');
         res.end(html);
-        process.exit();
-    }).listen(poort);
+        server.close();
+    });
+
+    server.listen(poort);
 
     exec(`xdg-open http://localhost:${poort}`);
-}
+};
