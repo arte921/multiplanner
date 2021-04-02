@@ -9,8 +9,6 @@ const {
  const config = readJSONSync("config");
 
 module.exports = (reis) => {
-    // require("./writeJSON")(reis, "bs_reis");
-
     const reisTabel = reis.reis.map((reisdeel) => `
         <tr>
             <td>${formateerTijdsduurMinuten(reisdeel.overstaptijd)}</td>
