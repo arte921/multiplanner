@@ -4,9 +4,9 @@ const maakTabel = (data) => data.map((rij) => rij.map((waarde, kolomIndex, _, br
 const formateerTijdsduurMinuten = (tijdsduur) => `${tijdsduur >= 60 ? `${Math.floor(tijdsduur / 60)} uur en ` : ""}${tijdsduur % 60} ${tijdsduur % 60 == 1 ? "minuut" : "minuten"}`;
 const formatteerDatum = (date) => date.toLocaleString('en-NL', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Amsterdam' });
 const vertaalZijde = (zijde) => ({
-    LEFT: "links",
-    RIGHT: "rechts"
-})[zijde] || "onbekend";
+    LEFT: "Links",
+    RIGHT: "Rechts"
+})[zijde] || "Onbekend";
 
 module.exports = {
     maakTabel,

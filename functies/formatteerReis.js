@@ -16,7 +16,7 @@ module.exports = (reis) => {
     ]);
 
     const resultaatString = maakTabel([[["Tijd", "Na", "Actie"]].concat(...reis.reis.map((rit) => {
-        const zijdeDeel = rit.uitstapzijde ? ` ${vertaalZijde(rit.uitstapzijde)}` : '';
+        const zijdeDeel = rit.uitstapzijde ? ` ${vertaalZijde(rit.uitstapzijde).toLowerCase()}` : '';
         return [[formatteerDatum(rit.vertrektijd), rit.overstaptijd, `\x1b[32mNeem de ${rit.categorie} richting ${rit.richting} op spoor ${rit.vertrekspoor}.\x1b[0m`],
             [formatteerDatum(rit.aankomsttijd), rit.ritduur, `\x1b[31mStap${zijdeDeel} uit in ${rit.aankomststationnaam}.\x1b[0m`]];
     }))][0]);
