@@ -1,4 +1,5 @@
 const {
+    formatteerTijd,
     formatteerDatum,
     formateerTijdsduurMinuten,
     vertaalZijde
@@ -14,11 +15,11 @@ module.exports = (reis) => {
             <td>${formateerTijdsduurMinuten(reisdeel.overstaptijd)}</td>
             <td>${reisdeel.vertrekstationnaam}</td>
             <td>${reisdeel.vertrekspoor}</td>
-            <td>${formatteerDatum(reisdeel.vertrektijd)}</td>
+            <td>${formatteerTijd(reisdeel.vertrektijd)}</td>
             <td>${reisdeel.categorie}</td>
             <td>${reisdeel.richting}</td>
             <td>${formateerTijdsduurMinuten(reisdeel.ritduur)}</td>
-            <td>${formatteerDatum(reisdeel.aankomsttijd)}</td>
+            <td>${formatteerTijd(reisdeel.aankomsttijd)}</td>
             <td>${reisdeel.aankomststationnaam}
             <td>${reisdeel.aankomstspoor}</td>
             <td>${vertaalZijde(reisdeel.uitstapzijde)}</td>
@@ -76,6 +77,7 @@ module.exports = (reis) => {
         <br>
         <table>
             <tr><th>Prijs</th><td>&euro;${reis.prijs / 100}</td></tr>
+            <tr><th>Vertrekdatum</th><td>${formatteerDatum(reis.reis[0].vertrektijd)}</td></tr>
             <tr><th>Wachttijd</th><td>${formateerTijdsduurMinuten(reis.stationstijd)}</td></tr>
             <tr><th>Rijtijd</th><td>${formateerTijdsduurMinuten(reis.treintijd)}</td></tr>
             <tr><th>Totale reistijd</th><td>${formateerTijdsduurMinuten(reis.reistijd)}</td></tr>
