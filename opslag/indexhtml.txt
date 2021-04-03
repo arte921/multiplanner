@@ -4,21 +4,21 @@
             textarea {
                 font-size: 150%;
                 width: 100%;
-                height: 80%;
+                height: 95%;
                 min-width: 100%;
                 max-width: 100%;
-                min-height: 80%;
-                max-height: 80%;
+                min-height: 95%;
+                max-height: 95%;
             }
 
             input {
                 font-size: 200%;
                 width: 100%;
-                height: 20%;
+                height: 5%;
                 min-width: 100%;
                 max-width: 100%;
-                min-height: 20%;
-                max-height: 20%;
+                min-height: 5%;
+                max-height: 5%;
             }
             
         </style>
