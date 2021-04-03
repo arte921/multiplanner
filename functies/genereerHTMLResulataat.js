@@ -7,7 +7,10 @@ const {
 
 
  const readJSONSync = require('./readJSONSync.js');
+ const readTXTSync = require('./readTXTSync.js');
  const config = readJSONSync("config");
+ const css = readTXTSync("resultaatcss");
+
 
 module.exports = (reis) => {
     const reisTabel = reis.reis.map((reisdeel) => `
@@ -31,27 +34,7 @@ module.exports = (reis) => {
 <html>
     <head>
         <title>Reis van ${reis.reis[0].vertrekstationnaam} naar ${reis.reis[reis.reis.length - 1].aankomststationnaam}</title>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-
-            th, td {
-                padding: 5px;
-            }
-
-            th {
-                text-align: left;
-            }
-
-            #map {
-                height: 100%;
-                /* The height is 400 pixels */
-                width: 100%;
-                /* The width is the width of the web page */
-              }
-        </style>
+        <style>${css}</style>
         <script>
         // Initialize and add the map
         function initMap() {
