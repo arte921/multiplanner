@@ -20,11 +20,12 @@ const polylineAfstand = (polyline) => {
 
     const geformatterdestations = stations.payload.filter((station) => station.land == "NL").map((station) => ({
         code: station.code.toLowerCase(),
-        naam: station.namen.lang,
+        namen: [station.namen.kort, station.namen.middel, station.namen.lang, station.code.toLowerCase(), ...station.synoniemen],
         coordinaat: [station.lng, station.lat]
     }));
 
     writeJSON(geformatterdestations, 'stations');
+    writeJSON(stations, 'bs_stations');
     writeJSON(spoorkaart, 'spoorkaart');
     writeTXT(maakTabel(geformatterdestations.map((station) => [station.code, station.naam])), "stations");
 })();
