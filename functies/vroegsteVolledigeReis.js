@@ -15,6 +15,5 @@ module.exports = async (van, naar, moment, volgRit) => {
 };
 
 const stop = (van, naar) => {
-    console.log("Geen reis gevonden van", van, "naar", naar);
-    process.exit();
+    throw(`Geen reis gevonden van ${van} naar ${naar}.`);
 };

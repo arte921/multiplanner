@@ -1,4 +1,5 @@
 {
     "ns_app_key_primary": "redacted",
-    "google_maps_api_key": "redacted"
+    "google_maps_api_key": "redacted",
+    "poort": 8080
 }

@@ -1,11 +1,12 @@
 const http = require('http');
 const url = require('url');
 
-const poort = 8080;
-
 const readTXT = require('./functies/readTXT');
 const multiReis = require('./functies/multiReis.js');
 const genereerHTMLResulataat = require('./functies/genereerHTMLResulataat.js');
+const readJSONSync = require('./functies/readJSONSync.js');
+
+const config = readJSONSync("config");
 
 http.createServer(async (req, res) => {
     res.writeHead(200);
@@ -20,7 +21,7 @@ http.createServer(async (req, res) => {
     try {
         res.end(genereerHTMLResulataat(await multiReis(aanvraag)));
     } catch(e) {
-        res.end(e.toString());
+        res.end("Deze reis is niet mogelijk.");
     }
 
-}).listen(poort);
+}).listen(config.poort);
