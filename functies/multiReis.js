@@ -7,9 +7,10 @@ const {
     extractLeg
 } = require('./interpreters.js');
 
-module.exports = async (route, startmoment, begintijd) => {
+module.exports = async (route) => {
     let volgRitNummer;
-    let volgendeDatum = new Date(startmoment.getTime() - 2 * 60 * 1000);
+    let volgendeDatum = new Date();
+    let begintijd;
 
     let resultaat = [];
     let totalePrijsCent = 0;
@@ -18,8 +19,27 @@ module.exports = async (route, startmoment, begintijd) => {
     let treintijd = 0;
     let stationstijd = 0;
     
-    for (let i = 1; i < route.length; i++) {
-        const trip = await vroegsteVolledigeReis(route[i - 1], route[i], volgendeDatum, volgRitNummer);
+    for (let i = 0; i < route.length; i++) {
+        if (!isNaN(route[i]) || route[i] instanceof Date) continue;
+        // huidige index wijst naar een stationscode
+        const huidigStation = route[i];
+
+        let vorigStation;
+        if (route[i - 1] instanceof Date) {
+            volgendeDatum = route[i - 1];
+            vorigStation = route[i - 2];
+        } else if (isNaN(route[i - 1])) {
+            vorigStation = route[i - 1];
+        } else {
+            vorigStation = route[i - 2];
+            volgendeDatum = new Date(volgendeDatum.getTime() + 1000 * 60 * route[i - 1]);
+        }
+        
+        if (!vorigStation) continue;
+
+        begintijd = begintijd || volgendeDatum;
+
+        const trip = await vroegsteVolledigeReis(vorigStation, huidigStation, volgendeDatum, volgRitNummer);
         urls.push(trip.shareUrl.uri);
         
         const rit = trip.legs.map(extractLeg);

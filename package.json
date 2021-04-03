@@ -8,5 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "chrono-node": "^2.2.5",
+    "string-similarity": "^4.0.4"
+  }
 }
