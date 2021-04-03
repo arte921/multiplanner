@@ -3,14 +3,10 @@ const {
     formatteerDatum,
     formateerTijdsduurMinuten,
     vertaalZijde
- } = require("./formatters.js");
+} = require("./formatters.js");
 
-
- const readJSONSync = require('./readJSONSync.js');
- const readTXTSync = require('./readTXTSync.js');
- const config = readJSONSync("config");
- const css = readTXTSync("resultaatcss");
-
+const readJSONSync = require('./readJSONSync.js');
+const config = readJSONSync("config");
 
 module.exports = (reis) => {
     const reisTabel = reis.reis.map((reisdeel) => `
@@ -34,7 +30,7 @@ module.exports = (reis) => {
 <html>
     <head>
         <title>Reis van ${reis.reis[0].vertrekstationnaam} naar ${reis.reis[reis.reis.length - 1].aankomststationnaam}</title>
-        <style>${css}</style>
+        <link rel="stylesheet" href="resultaat.css">
         <script>
         // Initialize and add the map
         function initMap() {
