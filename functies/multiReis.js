@@ -1,13 +1,17 @@
+const chrono = require('chrono-node');
+
 const vroegsteVolledigeReis = require('./vroegsteVolledigeReis.js');
 const polylineAfstand = require('./polylineAfstand.js');
 const stationsLijstPolyline = require('./stationsLijstPolyline.js');
 const coordinaatAfstand = require('./coordinaatAfstand.js');
+const zoekStation = require('./zoekStation.js');
 const {
     aankomstTijd,
     extractLeg
 } = require('./interpreters.js');
 
-module.exports = async (route) => {
+module.exports = async (tijdstationlijst) => {
+    const route = tijdstationlijst.split("\n").filter((regel) => !!regel).map((regel) => isNaN(regel) ? chrono.parseDate(regel) || zoekStation(regel.toLowerCase()).code : regel);
     let volgRitNummer;
     let volgendeDatum = new Date();
     let begintijd;

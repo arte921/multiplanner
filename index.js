@@ -1,23 +1,15 @@
-const chrono = require('chrono-node');
-
 const readTXT = require('./functies/readTXT');
-const writeTXT = require('./functies/writeTXT.js');
-const formatteerReis = require('./functies/formatteerReis.js');
 const multiReis = require('./functies/multiReis.js');
 const genereerHTMLResulataat = require('./functies/genereerHTMLResulataat.js');
 const openHTML = require('./functies/openHTML.js');
-const zoekStation = require('./functies/zoekStation.js');
-
-let reisHTML = "Nog geen reis berekend";
+const formatteerReis = require('./functies/formatteerReis.js');
+const writeTXT = require('./functies/writeTXT.js');
 
 (async () => {
-    const stationslijst = (await readTXT("route")).split("\n");
+    const reis = await multiReis(await readTXT("route"));
 
-    let route = stationslijst.filter((regel) => !!regel).map((regel) => isNaN(regel) ? chrono.parseDate(regel) || zoekStation(regel.toLowerCase()).code : regel);
-
-    const reis = await multiReis(route);
-    reisHTML = genereerHTMLResulataat(reis);
-    openHTML(reisHTML);
+    const reisHTML = genereerHTMLResulataat(reis);
+    openHTML(reisHTML, 5000);
 
     const reisScriptNederlands = formatteerReis(reis);
     console.log(reisScriptNederlands);

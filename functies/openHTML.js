@@ -1,9 +1,7 @@
-const poort = 8080;
-
 const http = require('http');
 const { exec } = require("child_process");
 
-module.exports = (html) => {
+module.exports = (html, poort) => {
     const server = http.createServer((_, res) => {
         res.setHeader('Connection', 'close');
         res.end(html);
