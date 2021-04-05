@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="invoer.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <script src="invoer.js"></script>
     
 <html>
 <head>
@@ -28,7 +30,7 @@
                     <form role="form" action="" method="post" class="route-form">
                         <div class="form-group ">
                             <div class="pos-r">                                        
-                                <textarea id="textarea" required type="textarea" name="route" placeholder="maandag 09:00 amsterdam rotterdam (Onder Elkaar)" class="textarea form-control"></textarea>
+                                <textarea id="textarea" required type="textarea" name="route" placeholder="monday 09:00&#10;amsterdam&#10;rotterdam" class="textarea form-control" onkeyup="resizeInvoer(this)"></textarea>
                             </div>
                         </div>
 
