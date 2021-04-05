@@ -12,7 +12,7 @@ const {
 } = require('./interpreters.js');
 
 module.exports = async (tijdstationlijst) => {
-    const route = tijdstationlijst.split("\n").filter((regel) => !!regel).map((regel) => isNaN(regel) ? chrono.parseDate(regel) || zoekStation(regel).code : regel);
+    const route = tijdstationlijst.split("\n").filter((regel) => !!regel).map((regel) => isNaN(regel) ? chrono.parseDate(regel) || downloadStation(regel) : regel);
     let volgRitNummer;
     let volgendeDatum = new Date();
     let begintijd;
@@ -44,7 +44,7 @@ module.exports = async (tijdstationlijst) => {
 
         begintijd = begintijd || volgendeDatum;
 
-        const trip = await vroegsteVolledigeReis(vorigStation, huidigStation, volgendeDatum, volgRitNummer);
+        const trip = await vroegsteVolledigeReis((await vorigStation).stationCode, (await huidigStation).stationCode, volgendeDatum, volgRitNummer);
         urls.push(trip.shareUrl.uri);
         
         const rit = trip.legs.map(extractLeg);

@@ -6,7 +6,6 @@ const {
 
 module.exports = async (van, naar, moment, volgRit) => {
     const reis = await haalReisOp(van, naar, moment.toISOString());
-    console.log(reis);
     if (!reis) stop(van, naar);
     const eersVolgendeRit = eerstAankomendeGeldigeRit(reis.trips, moment, volgRit);
     if (!eersVolgendeRit) stop(van, naar);
