@@ -11,6 +11,7 @@
   "dependencies": {
     "chrono-node": "^2.2.5",
     "delay": "^5.0.0",
-    "string-similarity": "^4.0.4"
+    "string-similarity": "^4.0.4",
+    "multiplanner": "^2.0.5"
   }
 }
