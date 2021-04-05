@@ -4,6 +4,7 @@ const readJSONSync = require('./readJSONSync.js');
 const config = readJSONSync("config");
 
 module.exports = (pad) => {
+    console.log(pad);
     const options = {
         host: 'gateway.apiportal.ns.nl',
         path: pad,
@@ -16,7 +17,10 @@ module.exports = (pad) => {
     return new Promise ((resolve) => {
             const request = https.request(options, (response) => {
                 response.on('data', (deel) => antwoord += deel);
-                response.on('end', () => resolve(JSON.parse(antwoord)));
+                response.on('end', () => {
+                    
+                    resolve(JSON.parse(antwoord));
+                });
             });
             request.end();
         }

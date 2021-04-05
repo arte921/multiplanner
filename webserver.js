@@ -30,7 +30,7 @@ http.createServer(async (req, res) => {
     try {
         res.end(genereerHTMLResulataat(await multiReis(aanvraag)));
     } catch(e) {
-        res.end("Deze reis is niet mogelijk.");
+        res.end(`Deze reis is niet mogelijk. Error: ${e.toString()}`);
     }
 
 }).listen(config.poort);
