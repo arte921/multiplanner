@@ -1,14 +1,38 @@
-const readTXT = require('./functies/readTXT');
-const formatteerReis = require('./functies/formatteerReis.js');
-const writeTXT = require('./functies/writeTXT.js');
+const http = require('http');
+const url = require('url');
+
+const haalWebfileOp = require('./functies/haalWebfileOp.js');
 const {
     multiReis
-} = require("multiplanner");
+} = require('multiplanner');
+const genereerHTMLResulataat = require('./functies/genereerHTMLResulataat.js');
+const readJSONSync = require('./functies/readJSONSync.js');
 
-(async () => {
-    const reis = await multiReis(await readTXT("route"));
-    const reisScriptNederlands = formatteerReis(reis);
+const config = readJSONSync("config");
 
-    console.log(reisScriptNederlands);
-    writeTXT(reisScriptNederlands, "reis");
-})();
+http.createServer(async (req, res) => {
+
+    const parsedUrl = url.parse(req.url, true);
+
+    const aanvraag = parsedUrl.query.route;
+    const href = ["/", ""].includes(parsedUrl.href) ? "index.html" : parsedUrl.href;
+
+    if (!aanvraag) {
+        await haalWebfileOp(href).catch(() => {
+            res.writeHead(404);
+            res.end();
+        }).then((file) => {
+            res.writeHead(200);
+            res.end(file);
+        });
+
+        return;
+    }
+
+    try {
+        res.end(genereerHTMLResulataat(await multiReis(aanvraag)));
+    } catch (e) {
+        res.end(`Deze reis is niet mogelijk. Error: ${e.toString()}`);
+    }
+
+}).listen(config.poort);

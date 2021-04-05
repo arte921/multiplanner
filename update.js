@@ -1,6 +1,6 @@
 const {
     updateMultiplanner
-} = require("multiplanner");
+} = require('multiplanner');
 
 const readJSON = require("./functies/readJSON.js");
 
