@@ -12,6 +12,6 @@
     "chrono-node": "2.2.6",
     "delay": "^5.0.0",
     "string-similarity": "^4.0.4",
-    "multiplanner": "^2.0.5"
+    "multiplanner": "^2.0.9"
   }
 }
