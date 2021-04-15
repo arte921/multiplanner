@@ -36,7 +36,9 @@ module.exports = (reis) => {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
         <title>Reis van ${reis.reis[0].vertrekstationnaam} naar ${reis.reis[reis.reis.length - 1].aankomststationnaam}</title>
+        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">-->
         <link rel="stylesheet" href="bootstrap-neon-glow.css">
+
         
         <link rel="stylesheet" href="resultaat.css">
         <script>
@@ -61,7 +63,7 @@ module.exports = (reis) => {
     </head>
     <body>
 
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="row">
 
@@ -80,24 +82,26 @@ module.exports = (reis) => {
                     </div>
                 </div>
 
-                <div class="map-container col" id="google-map-reis"></div>
+                <div class="col" id="google-map-reis"></div>
 
                 <div class="col">
                     <h3>Reisplan</h3>
-                    <table class="table table-hover">
-                        <th scope="col">Overstaptijd</th>
-                        <th scope="col">Vertrekstation</th>
-                        <th scope="col">Vertrekspoor</th>
-                        <th scope="col">Vertrektijd</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Richting</th>
-                        <th scope="col">Ritduur</th>
-                        <th scope="col">Aankomsttijd</th>
-                        <th scope="col">Aankomststation</th>
-                        <th scope="col">Aankomstspoor</th>
-                        <th scope="col">Uitstapzijde</th>
-                        ${reisTabel}
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <th scope="col">Overstaptijd</th>
+                            <th scope="col">Vertrekstation</th>
+                            <th scope="col">Vertrekspoor</th>
+                            <th scope="col">Vertrektijd</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Richting</th>
+                            <th scope="col">Ritduur</th>
+                            <th scope="col">Aankomsttijd</th>
+                            <th scope="col">Aankomststation</th>
+                            <th scope="col">Aankomstspoor</th>
+                            <th scope="col">Uitstapzijde</th>
+                            ${reisTabel}
+                        </table>
+                    </div>
                 </div>
            
                 <div class="col">
