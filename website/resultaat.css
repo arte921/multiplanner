@@ -1,17 +1,7 @@
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
+.bewijslink {
+    color: #FFC917;
 }
 
-th, td {
-    padding: 5px;
-}
-
-th {
-    text-align: left;
-}
-
-#map {
-    height: 100%;
-    width: 100%;
+.bewijslink:hover {
+    color: #c59700;
 }
